@@ -155,7 +155,7 @@ In order to allow real-time saving of changes, bisquit will fire the `data-on-ch
 
 * The event is fired 500ms after user stops typing, in order to avoid too many calls to the server-side controller (this delay is configurable with the global `bisquit.config.keyUpDelay` variable).
 * The `bsqt-pending-component-action` class is applied to the control while a remote call is in progress (the supplied stylesheet will display a small spinner, as a feedback to the user that their changes are being saved in real time).
-* Bisquit will assume that the server will not apply any changes to the DOM in response of a keyup-generated `data-on-change`, and will ignore any. This prevents issues with users losing their focus while typing.
+* Bisquit will assume that the server will not apply any changes to the DOM in response to a keyup-generated `data-on-change`, and will ignore any. This prevents issues with users losing their focus while typing.
 
 ### Client-side event handling
 
@@ -232,10 +232,10 @@ In addition to altering the interface, the server-side controller can ask bisqui
 
 ```json
 {
-    trigger: [
+    trigger: [{
         component: "TaskList",
         event: "reload"
-    ]
+    }]
 }
 ```
 
@@ -244,15 +244,15 @@ This is handy for two purposes:
 * whenever you need to send an event to an outer component (for example, after deleting a _Task_ you want to reload the full _TaskList_);
 * whenever you want to execute client-side code, which you defined as a client-side event handler.
 
-The `component` parameter can be omitted, in which case the current one will be addressed. An additional `data` parameter, containing an **array**, can be supplied to the event. See below for a full example:
+Multiple events can be fired, that's why `trigger` is an array. Also, the `component` parameter can be omitted, in which case the current one will be addressed. An additional `data` parameter, containing an **array**, can be supplied to the event. See below for a full example:
 
 ```json
 {
-    trigger: [
+    trigger: [{
         component: "MyApp",
         event: "show-alert",
         data: ["Your changes were saved successfully!"]
-    ]
+    }]
 }
 ```
 
